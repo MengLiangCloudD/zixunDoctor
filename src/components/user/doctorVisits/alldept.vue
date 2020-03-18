@@ -5,7 +5,7 @@
                 <Icon size="30" type="ios-arrow-back" />
             </div>
              全部科室
-        </div>
+        </div> 
         <div class="content">
             <p class="selectdep">按科室找医生</p>
             <div class="content1">
