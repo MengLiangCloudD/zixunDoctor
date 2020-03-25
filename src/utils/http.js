@@ -14,7 +14,6 @@ const http = options => {
       ...newOptions.headers
     };
     //这里可以在调用的时候看到你的method、url、data、headers等参数
-    //console.log(newOptions);
     axios({
       method: newOptions.method,
       url: newOptions.url,

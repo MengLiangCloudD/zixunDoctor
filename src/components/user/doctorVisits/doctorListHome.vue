@@ -6,6 +6,7 @@
             </div>
              找医生
         </div>
+        <img src="./../../../common/imager/13.jpg" alt="" width="100%" height="150px" @click="goleadHome">
         <div class="content">
             <p class="selectdep">选择科室</p>
             <p class="alldep" @click="goalldept()">查看全部科室<Icon size="30" type="ios-arrow-forward" style="vertical-align: middle;"/>
@@ -19,8 +20,8 @@
             </div>
             <p style="text-align: left;font-size:22px;padding: 10px 5%;padding-left:5%;font-weight: 900">名医推荐 <span style="text-align: left;font-size:16px;padding: 10px 0;padding-left:15px;font-weight: 100">获取更多诊疗建议</span></p>
             <div class="content2">
-                <div class="docctor" v-for="(item,index) in docList" :key="index">
-                    <img src="./../../../common/imager/avatar.png" alt="" width="60">
+                <div class="docctor" v-for="(item,index) in docList" :key="index" @click="goDocparticular(item)">
+                    <img src="./../../../common/imager/avatar.png" alt=""  style="width:60px">
                     <div class="docxiang">
                         <div class="docNmae">
                             <p>{{item.nickname}}</p>
@@ -35,24 +36,29 @@
                             </p>
                         </div>
                         <div class="yuan">
-                            <p>中国人民解放军总医院301医院</p>
-                            <p>内科</p>
+                            <p>{{item.hospital}}</p>
                         </div>
                         <div class="shanchang">
                             <p style="width:285px;">擅长：{{item.info}}</p>
-                            <p style="width:285px;">擅长：呼吸系统疾病、消化系统疾病、新生儿黄疸、过敏性疾病、手足口病、疱疹性口炎、疱疹性咽峡炎、猩红热、川崎病、传单等</p>
+                            <!-- <p >擅长：呼吸系统疾病、消化系统疾病、新生儿黄疸、过敏性疾病、手足口病、疱疹性口炎、疱疹性咽峡炎、猩红热、川崎病、传单等</p> -->
                         </div>
                     </div>
                 </div>
                     
             </div>
+            
         </div>
+        <tabbar class="pubtabbar"></tabbar>
     </div>
 </template>
 
 <script>
 import http from '@/utils/http'
+import tabbar from "./../../../common/tabbar";
     export default {
+        components: {
+            tabbar,
+        },
         data() {
             return {
                 deplist:[
@@ -101,9 +107,18 @@ import http from '@/utils/http'
             }
         },
         methods: {
+            //进入医生介绍页
+            goDocparticular(item){
+                //存储医生id
+                this.$store.commit('setdoctor_id',item.doctor_id);
+                this.$router.push('/docparticular');
+            },
+            goleadHome(){
+                this.$router.push('/leadHome');
+            },
             //返回上一层
             tobackdetail(){
-                this.$router.push('/home')
+                this.$router.push('/home');
             },
             //请求科室
             getdept(){
@@ -144,7 +159,7 @@ import http from '@/utils/http'
                     method:'post',
                     url:url,
                     data:{
-                        class_id:'1'
+                        class_id:'10101'
                     },
                     headers: {
                         "Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"
@@ -176,6 +191,10 @@ import http from '@/utils/http'
 </script>
 
 <style scoped>
+.pubtabbar {
+  position: fixed;
+  bottom: 0;
+}
 .tittle {
   height: 50px;
   text-align: center;
@@ -230,6 +249,7 @@ import http from '@/utils/http'
 
 }
 .docxiang{
+        width: calc(100% - 90px);
     display: inline-block;
     vertical-align: top;
 }
@@ -274,6 +294,7 @@ import http from '@/utils/http'
       
 }
 .shanchang p{
+    
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;

@@ -9,7 +9,7 @@
          <p style="text-align: left;font-size:22px;padding: 10px 5%;padding-left:5%;font-weight: 900">选择医生</p>
         <div class="content">
             <div class="content2">
-                <div class="docctor" v-for="(item,index) in docList" :key="index">
+                <div class="docctor" v-for="(item,index) in docList" :key="index" @click="goDocparticular(item)">
                     <img src="./../../../common/imager/avatar.png" alt="" width="60">
                     <div class="docxiang">
                         <div class="docNmae">
@@ -30,7 +30,7 @@
                         </div>
                         <div class="shanchang">
                             <p style="width:285px;">擅长：{{item.info}}</p>
-                            <p style="width:285px;">擅长：呼吸系统疾病、消化系统疾病、新生儿黄疸、过敏性疾病、手足口病、疱疹性口炎、疱疹性咽峡炎、猩红热、川崎病、传单等</p>
+                            <!-- <p style="width:285px;">擅长：呼吸系统疾病、消化系统疾病、新生儿黄疸、过敏性疾病、手足口病、疱疹性口炎、疱疹性咽峡炎、猩红热、川崎病、传单等</p> -->
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@ import http from '@/utils/http'
             //查询医生接口
             selectdoc(){
                  var that = this;
-                 var class_id = that.$store.getters.getclass_id;
+                 var class_id = localStorage.getItem('class_id');
                 var url  = 'appt/doctorList';
                 http({
                     method:'post',
@@ -79,6 +79,13 @@ import http from '@/utils/http'
                     console.log(err);
                 });
             },
+            //进入医生介绍页
+            goDocparticular(item){
+                //存储医生id
+                 this.$store.commit('setdoctor_id',item.doctor_id);
+                
+                this.$router.push('/docparticular');
+            }
         },
         created() {
             this.selectdoc();

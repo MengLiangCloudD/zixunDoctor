@@ -6,12 +6,14 @@ import router from './router'
 import "./common/style/base.css";
 import store from "./store";
 import axios from 'axios'; /* 引入axios进行地址访问*/
-import { Button,Icon } from 'iview';
+import { Button,Icon,Switch,Modal } from 'iview';
 import 'view-design/dist/styles/iview.css';
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.component('Icon', Icon);
 Vue.component('Button', Button);
+Vue.component('Switchs', Switch);
+Vue.component('Modal', Modal);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
